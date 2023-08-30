@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+	package com.example.demo.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.ApplicantEntities;
+import com.example.demo.model.ApplicantPersonal;
 import com.example.demo.service.ApplicantService;
 
 @RestController
@@ -24,7 +25,12 @@ ApplicantService as;
 public List<ApplicantEntities> add(@RequestBody List<ApplicantEntities> al){
 	return as.saveinfo(al);
 }
-@GetMapping("showDetail") 
+@GetMapping("filljobid")
+public String fillJobIdBasedonSkills() {
+	as.fillJobIdBasedonSkills();
+	return "Job IDs filled based on skills";
+}
+@GetMapping("getinfo") 
 public List<ApplicantEntities> show(){
 	return as.showinfo();
 	}
@@ -47,6 +53,10 @@ public String delete(@PathVariable int id) {
 	 return as.deleteinfo(id);
 	 
 }
+@GetMapping("sort/{name}")
+public List<ApplicantEntities> sort(@PathVariable String name){
+	return as.sortinfo(name);
+}
 @DeleteMapping("deletebybody")
 public List<ApplicantEntities> deletebody(@RequestBody ApplicantEntities ae){
 	as.deletebybody(ae);
@@ -55,5 +65,9 @@ public List<ApplicantEntities> deletebody(@RequestBody ApplicantEntities ae){
 @GetMapping("showbyid")
 public Optional<ApplicantEntities> showByid(@RequestParam int id) {
 	return as.showbyid(id);
-}
+}/*
+@GetMapping("getPersonalinfo/{id}")
+public List<ApplicantPersonal> getPersonalinfo(@PathVariable int id){
+	return as.getPersonalinfo(id);
+}*/
 }
